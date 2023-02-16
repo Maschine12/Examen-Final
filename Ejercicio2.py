@@ -1,10 +1,14 @@
+#2. Crea un programa en Python que mantenga un historial de tareas pendientes. 
+# El programa debe permitir al usuario agregar una tarea al inicio de la lista, 
+# eliminar una tarea del final de la lista y mostrar todas las tareas en la lista en orden inverso al que se agregaron.
+# Además, el programa debe contar la cantidad total de tareas en la lista y mostrar ese número al usuario.
 class Nodo:
     def __init__(self, dato):
         self.dato = dato
         self.sig = None
         self.ant = None
 
-class Lista:
+class ListaDoble:
     def __init__(self):
         self.primero = None
         self.cola = None
@@ -28,6 +32,16 @@ class Lista:
             self.cola = aux.sig = nodo
             self.cola.ant = aux
     
+    def eliminarInicio(self):
+        if len(self) == 0:
+            pass
+        elif self.primero.sig == None:
+            self.primero = self.cola = None
+        else:
+            self.primero = self.primero.sig
+            self.primero.ant = None
+
+
     def eliminarFinal(self):
         if len(self) == 0:
             pass
@@ -95,11 +109,11 @@ class Lista:
     
     def __str__(self) -> str:
         aux = self.primero
-        datos = " <:"
+        datos = " <<<<<<<<<<< Lista de tareas >>>>>>>>>"
         while aux != None:
-            datos += str(aux.dato) + " : "
+            datos += str(aux.dato) + " \n "
             aux = aux.sig
-        datos += ">"
+        datos += "<<<<<<<<<<<<< Fin lista tareas >>>>>>>>"
         return datos
     
     def __getitem__(self, indice):
@@ -122,42 +136,58 @@ def lista_Opciones(lista):
     valor = True
     while valor :
         print("""
-        Opciones para hacer con la lista compras:
-        1: Agregar elemento al Inicio
-        2: Agregar elemento al Final
-        3: Eliminar elemento Inicio
-        4: Eliminar elemento Final
-        5: Verificar si esta vacia
-        6: Ver lista
-        7: Salir
+        Opciones para hacer con la lista:
+        1: Agregar tarea al Inicio
+        2: Eliminar tarea al  Final
+        3: Verificar si esta vacia
+        4: Ver lista al revez
+        5: Salir
         """)
     
         opcion = int(input("- Seleccione una opcion : "))
 
         if opcion == 1:
-            dato = int(input("Ingrese un dato : "))
+            dato = str(input("Ingrese un dato : "))
             lista.agregarInicio(dato)
         elif opcion == 2:
-            dato = int(input("Ingrese un dato : "))
-            lista.agregarFinal(dato)
-        elif opcion == 3:
-            lista.eliminarInicio() #elimina el primer nodo
-        elif opcion == 4:
             lista.eliminarFinal() #Elimina el ultimo nodo
-        elif opcion==5:
+        elif opcion==3:
             if(len(lista))==0:
                 print("Esta vacia")
             else:
                 print("No esta vacia ")
-        elif opcion==6:
+        elif opcion==4:
             print(" Esta es la lista de datos que se estan guardando")
             print(lista)
-        elif opcion ==7:
+        elif opcion ==5:
             print("Hemos salido ;-;  ")
+            print("""
+            ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢲⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠄⠂⢉⠤⠐⠋⠈⠡⡈⠉⠐⠠⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⡀⢠⣤⠔⠁⢀⠀⠀⠀⠀⠀⠀⠀⠈⢢⠀⠀⠈⠱⡤⣤⠄⣀⠀⠀⠀⠀⠀
+⠀⠀⠰⠁⠀⣰⣿⠃⠀⢠⠃⢸⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠈⢞⣦⡀⠈⡇⠀⠀⠀
+⠀⠀⠀⢇⣠⡿⠁⠀⢀⡃⠀⣈⠀⠀⠀⠀⢰⡀⠀⠀⠀⠀⢢⠰⠀⠀⢺⣧⢰⠀⠀⠀⠀
+⠀⠀⠀⠈⣿⠁⡘⠀⡌⡇⠀⡿⠸⠀⠀⠀⠈⡕⡄⠀⠐⡀⠈⠀⢃⠀⠀⠾⠇⠀⠀⠀⠀
+⠀⠀⠀⠀⠇⡇⠃⢠⠀⠶⡀⡇⢃⠡⡀⠀⠀⠡⠈⢂⡀⢁⠀⡁⠸⠀⡆⠘⡀⠀⠀⠀⠀
+⠀⠀⠀⠸⠀⢸⠀⠘⡜⠀⣑⢴⣀⠑⠯⡂⠄⣀⣣⢀⣈⢺⡜⢣⠀⡆⡇⠀⢣⠀⠀⠀⠀
+⠀⠀⠀⠇⠀⢸⠀⡗⣰⡿⡻⠿⡳⡅⠀⠀⠀⠀⠈⡵⠿⠿⡻⣷⡡⡇⡇⠀⢸⣇⠀⠀⠀
+⠀⠀⢰⠀⠀⡆⡄⣧⡏⠸⢠⢲⢸⠁⠀⠀⠀⠀⠐⢙⢰⠂⢡⠘⣇⡇⠃⠀⠀⢹⡄⠀⠀
+⠀⠀⠟⠀⠀⢰⢁⡇⠇⠰⣀⢁⡜⠀⠀⠀⠀⠀⠀⠘⣀⣁⠌⠀⠃⠰⠀⠀⠀⠈⠰⠀⠀
+⠀⡘⠀⠀⠀⠀⢊⣤⠀⠀⠤⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠤⠄⠀⢸⠃⠀⠀⠀⠀⠀⠃⠀
+⢠⠁⢀⠀⠀⠀⠈⢿⡀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⢀⠏⠀⠀⠀⠀⠀⠀⠸⠀
+⠘⠸⠘⡀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠁⠀⠃⠀⠀⠀⠀⢀⠎⠀⠀⠀⠀⠀⢠⠀⠀⡇
+⠀⠇⢆⢃⠀⠀⠀⠀⠀⡏⢲⢤⢀⡀⠀⠀⠀⠀⠀⢀⣠⠄⡚⠀⠀⠀⠀⠀⠀⣾⠀⠀⠀
+⢰⠈⢌⢎⢆⠀⠀⠀⠀⠁⣌⠆⡰⡁⠉⠉⠀⠉⠁⡱⡘⡼⠇⠀⠀⠀⠀⢀⢬⠃⢠⠀⡆
+⠀⢢⠀⠑⢵⣧⡀⠀⠀⡿⠳⠂⠉⠀⠀⠀⠀⠀⠀⠀⠁⢺⡀⠀⠀⢀⢠⣮⠃⢀⠆⡰⠀
+⠀⠀⠑⠄⣀⠙⡭⠢⢀⡀⠀⠁⠄⣀⣀⠀⢀⣀⣀⣀⡠⠂⢃⡀⠔⠱⡞⢁⠄⣁⠔⠁⠀
+⠀⠀⠀⠀⠀⢠⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠉⠁⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀
+            """)
             valor = False
         else:
             print("Esa ocion no esta permitida")
 
 
-ls = Lista() #instanciando
+ls = ListaDoble() #instanciando
 lista_Opciones(ls)

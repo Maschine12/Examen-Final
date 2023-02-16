@@ -30,25 +30,6 @@ class ListaDoble:
         else:
             self.primero = self.primero.sig
             self.primero.ant = None
-
-    def buscarNodo(self, dato):
-        existe = False
-        aux = self.primero
-        while aux != None:
-            if aux.dato == dato:
-                existe = True
-                break
-            aux = aux.sig
-        return existe
-    
-    def reemplazarNodo(self, anterior, nuevoDato):
-        if self.buscarNodo(anterior):
-            aux = self.primero
-            while aux != None:
-                if aux.dato == anterior:
-                    aux.dato = nuevoDato
-                    break
-                aux = aux.sig
     def __len__(self):
         aux = self.primero
         count = 0
